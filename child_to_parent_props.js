@@ -1,11 +1,19 @@
-import React, { useState, useRef, memo } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { render } from 'react-dom';
 import './style.css';
 
 export function App() {
   const [count, setCount] = useState(0);
   const { render, childData, setChildData } = useChild(); // now childs childData and becomes parent property
+
   const { prop1 } = childData || {};
+
+  useEffect(() => {
+    console.log(
+      'child data changed:: run the business logic to change parent properties'
+    );
+    setCount((prev) => prev + 1);
+  }, [childData.prop1]);
 
   return (
     <div>
